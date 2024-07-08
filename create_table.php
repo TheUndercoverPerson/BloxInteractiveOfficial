@@ -15,18 +15,27 @@ if ($conn->connect_error) {
 // Get the table name from the POST request
 $table_name = $_POST['table_name'];
 
+// Validate table name
+if (empty($table_name)) {
+    die("Table name is required.");
+}
+
+// Sanitize table name to prevent SQL injection
+$table_name = preg_replace('/[^a-zA-Z0-9_]/', '', $table_name);
+
+echo "Attempting to create table '$table_name'...<br>";
+
 // SQL to create table
 $sql = "CREATE TABLE $table_name (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    overseer/HR VARCHAR(30) NOT NULL,
-    host VARCHAR(30) NOT NULL,
-    co-host VARCHAR(50),
-    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    trainers VARCHAR(300)
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    email VARCHAR(50),
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table $table_name created successfully";
+    echo "Table '$table_name' created successfully.";
 } else {
     echo "Error creating table: " . $conn->error;
 }
