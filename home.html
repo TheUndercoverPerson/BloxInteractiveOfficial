@@ -1,9 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>After Loggin In</title>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <!-- Include Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js"></script>
+  <script>
+    // Firebase configuration (replace with your Firebase project's config)
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Check if user is authenticated
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        // User is not signed in, redirect to sorry.html
+        window.location.replace("sorry.html");
+      }
+    });
+  </script>
 </head>
 <body>
-	<H1>Logged In</H1>
+  <!-- Your home page content -->
+  <h1>Welcome to the Home Page</h1>
+  <p>This is a restricted page. Only authenticated users can access it.</p>
 </body>
 </html>
