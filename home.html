@@ -8,17 +8,17 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js"></script>
   <script>
     // Firebase configuration (replace with your Firebase project's config)
-    var firebaseConfig = {
+    var config = {
       apiKey: "AIzaSyC7xnJrwG4RJFgwfq4TZzSTshEkCu5lV7Y",
-  authDomain: "bloxinteractive-1.firebaseapp.com",
-  projectId: "bloxinteractive-1",
-  storageBucket: "bloxinteractive-1.appspot.com",
-  messagingSenderId: "960005834175",
-  appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
+      authDomain: "bloxinteractive-1.firebaseapp.com",
+      projectId: "bloxinteractive-1",
+      storageBucket: "bloxinteractive-1.appspot.com",
+      messagingSenderId: "960005834175",
+      appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(config);
 
     // Check if user is authenticated
     firebase.auth().onAuthStateChanged(function(user) {
