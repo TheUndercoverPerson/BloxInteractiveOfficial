@@ -9,3 +9,10 @@ body {
   text-align: Center;
   align-content: Center;
 }
+.a {
+  background-color: White;
+  color: black;
+  border: 2px;
+  border-color: Blue;
+  border-radius: 3px;
+}
