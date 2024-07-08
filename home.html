@@ -50,7 +50,7 @@ a {
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
         // User is not signed in, redirect to sorry.html
-        window.location.replace("sorry.html");
+        window.location.replace("unauthorized.html.html");
       }
     });
   </script>
@@ -60,7 +60,13 @@ a {
   <div class="center">
   <h1>Dashboard</h1>
   <p>Welcome to BloxInteractive! Please click one of the buttons below or navigate to another page to get started!</p>
-    <a href="bloxverifybot">Roblox Verify Bot</a>
+    <a href="bloxverifybot.html">Roblox Verify Bot</a>
+    <a href="gamereport.html">Game Reports</a>
+    <a href="bloxapps.html">Applications and Forms</a>
+    <a href="bloxmod.html">Moderation</a>
+    <a href="bloxtrainlog.html">Training Logging</a>
+    <a href="bloxdiscordbot.html">Discord Bot</a>
+    <a href="bloxguildedbot.html">Guilded Bot</a>
   </div>
 </body>
 </html>
