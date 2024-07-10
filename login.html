@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sign In</title>
-	<link rel="icon" href="" type="image/gif" sizes="16x16">
+    <title>Sign In</title>
+    <link rel="icon" href="" type="image/gif" sizes="16x16">
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyC7xnJrwG4RJFgwfq4TZzSTshEkCu5lV7Y",
-  authDomain: "bloxinteractive-1.firebaseapp.com",
-  projectId: "bloxinteractive-1",
-  storageBucket: "bloxinteractive-1.appspot.com",
-  messagingSenderId: "960005834175",
-  appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
-	  };
-	  firebase.initializeApp(config);
-	</script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC7xnJrwG4RJFgwfq4TZzSTshEkCu5lV7Y",
+            authDomain: "bloxinteractive-1.firebaseapp.com",
+            projectId: "bloxinteractive-1",
+            storageBucket: "bloxinteractive-1.appspot.com",
+            messagingSenderId: "960005834175",
+            appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
+        };
+        firebase.initializeApp(config);
+    </script>
 
-	<script type="text/javascript" src="main.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function toggleSignIn() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
 
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+            if (email.length < 4) {
+                alert('Please enter an email address.');
+                return;
+            }
+            if (password.length < 4) {
+                alert('Please enter a password.');
+                return;
+            }
+
+            // Sign in with email and password
+            firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
+                // Sign-in successful, save email to localStorage
+                localStorage.setItem("email", email);
+                alert('Signed in successfully');
+            }).catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                if (errorCode === 'auth/wrong-password') {
+                    alert('Wrong password.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            });
+        }
+    </script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
 <div id="message-container"></div>
@@ -41,12 +72,12 @@
                             
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="email" type="text" class="form-control" name="username" value="" placeholder="username or email">      
+                        <input id="email" type="text" class="form-control" name="username" value="" placeholder="Username or Email">      
                     </div>
                         
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="password" placeholder="password">
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                     </div>
 
                     <div class="input-group">
@@ -55,23 +86,19 @@
                               <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
                             </label>
                         </div>
-                   	</div>
-
+                    </div>
 
                     <div style="margin-top:10px" class="form-group">
-                        
                         <div id="btn-singIn" class="col-sm-12 controls">
                           <input type="button" name="" id="btn-login" class="btn btn-success" onclick="toggleSignIn()" value="Login">
-                          <!-- <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a> -->
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <div class="col-md-12 control">
-                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                                     Don't have an account! 
-                                <a href="singup.html">
+                                <a href="signup.html">
                                     Sign Up Here
                                 </a>
                             </div>
@@ -82,6 +109,6 @@
         </div>  
     </div>
 </div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
