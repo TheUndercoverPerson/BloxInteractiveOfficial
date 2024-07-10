@@ -12,7 +12,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.post('/submit', async (req, res) => {
+app.post('/api/submit', async (req, res) => {
     const { username } = req.body;
 
     if (!username) {
