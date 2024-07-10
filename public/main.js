@@ -60,6 +60,7 @@ function handleSignUp() {
 
   firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
     startCountdown('Account created successfully. Redirecting in ', 'index.html');
+    localStorage.setItem("email", email);
   }).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
