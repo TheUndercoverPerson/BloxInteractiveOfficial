@@ -4,12 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Username Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: Center;
+            padding: 3px;
+            background-color: black;
+            color: White;
+            margin: 3px;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC7xnJrwG4RJFgwfq4TZzSTshEkCu5lV7Y",
+            authDomain: "bloxinteractive-1.firebaseapp.com",
+            projectId: "bloxinteractive-1",
+            storageBucket: "bloxinteractive-1.appspot.com",
+            messagingSenderId: "960005834175",
+            appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.firestore();
+
+        // Function to post email to Firestore
+        async function postEmailToFirestore() {
+            var email = localStorage.getItem("email");
+            if (email) {
+                try {
+                    const docRef = await db.collection("users").add({
+                        email: email,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                }
+            } else {
+                console.log("No email found in localStorage");
+            }
+        }
+    </script>
 </head>
 <body>
     <form id="usernameForm">
+        <h1>API KEY Registration</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <button type="submit">Submit</button>
+        <p id="errorsuccess"></p>
     </form>
 
     <script>
@@ -26,9 +71,11 @@
             });
 
             if (response.ok) {
-                alert('Username submitted successfully!');
+                document.getElementById('usernameForm').innerHTML = "API KEY Successfully Registered";
+                await postEmailToFirestore();
             } else {
-                alert('Failed to submit username.');
+                document.getElementById('usernameForm').innerHTML = "API KEY Registration Error";
+            
             }
         });
     </script>
