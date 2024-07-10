@@ -14,42 +14,6 @@
             margin: 3px;
         }
     </style>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script>
-        // Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC7xnJrwG4RJFgwfq4TZzSTshEkCu5lV7Y",
-            authDomain: "bloxinteractive-1.firebaseapp.com",
-            projectId: "bloxinteractive-1",
-            storageBucket: "bloxinteractive-1.appspot.com",
-            messagingSenderId: "960005834175",
-            appId: "1:960005834175:web:ffc0bda6f02e1303cf0d0a"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore(app);
-
-        // Function to post email to Firestore
-        async function postEmailToFirestore() {
-            const email = localStorage.getItem("email");
-            if (email) {
-                try {
-                    const docRef = await db.collection("users").add({
-                        email: email,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    console.log("Document written with ID: ", docRef.id);
-                } catch (error) {
-                    console.error("Error adding document: ", error);
-                }
-            } else {
-                console.log("No email found in localStorage");
-            }
-        }
-    </script>
 </head>
 <body>
     <form id="usernameForm">
@@ -62,20 +26,25 @@
         document.getElementById('usernameForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
-            
+            const email = localStorage.getItem('email'); // Retrieve email from localStorage
+
+            if (!email) {
+                alert('Email not found in localStorage.');
+                return;
+            }
+
             const response = await fetch('/api/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username })
+                body: JSON.stringify({ username, email }) // Include email in the request body
             });
+
             if (response.ok) {
-                document.getElementById('usernameForm').innerHTML = "API KEY Successfully Registered";
-                await postEmailToFirestore();
+                alert('Username and email submitted successfully!');
             } else {
-                document.getElementById('usernameForm').innerHTML = "API KEY Registration Error";
-            
+                alert('Failed to submit username and email.');
             }
         });
     </script>
