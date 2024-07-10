@@ -32,6 +32,8 @@ function toggleSignIn() {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        localStorage.setItem("email", email);
+                alert('Signed in successfully');
         startCountdown('Signed in successfully. Redirecting in ', 'home.html');
       }
     });
