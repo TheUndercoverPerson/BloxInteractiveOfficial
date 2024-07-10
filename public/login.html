@@ -36,6 +36,7 @@
                 // Sign-in successful, save email to localStorage
                 localStorage.setItem("email", email);
                 alert('Signed in successfully');
+                window.location.href = "home.html
             }).catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
