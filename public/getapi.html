@@ -34,7 +34,7 @@
             var email = localStorage.getItem("email");
             if (email) {
                 try {
-                    const docRef = await db.collection("users").add({
+                    const docRef = await db.collection("api1").add({
                         email: email,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     });
