@@ -17,40 +17,6 @@
         firebase.initializeApp(config);
     </script>
 
-    <script type="text/javascript">
-        function toggleSignIn() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-
-            if (email.length < 4) {
-                alert('Please enter an email address.');
-                return;
-            }
-            if (password.length < 4) {
-                alert('Please enter a password.');
-                return;
-            }
-
-            // Sign in with email and password
-            firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
-                // Sign-in successful, save email to localStorage
-                localStorage.setItem("email", email);
-                alert('Signed in successfully');
-                window.location.href = "home.html
-            }).catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-
-                if (errorCode === 'auth/wrong-password') {
-                    alert('Wrong password.');
-                } else {
-                    alert(errorMessage);
-                }
-                console.log(error);
-            });
-        }
-    </script>
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
